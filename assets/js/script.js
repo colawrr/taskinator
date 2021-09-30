@@ -93,8 +93,7 @@ var taskFormHandler = function(event) {
 
         taskIdCounter++;
 
-        console.log(taskDataObj);
-        console.log(taskDataObj.status);
+        
 }
 
 var createTaskActions = function(taskId) {
@@ -219,12 +218,22 @@ localStorage.setItem("tasks", tasks);
         tasks[i].status = statusValue;
       }
     }
-    console.log(tasks);    
-    localStorage.setItem("tasks", tasks);
   };
   
   var saveTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
+  var loadTasks = function() {
+    if (!savedTasks) {
+      return false;      
+    }
+
+    savedTasks = JSON.parse(savedTasks);
+
+    for (var i = 0; i < savedTasks.length; i++) {
+      createTaskEl(savedTasks[i]);
+    }
   }
 
   pageContentEl.addEventListener("click", taskButtonHandler);
